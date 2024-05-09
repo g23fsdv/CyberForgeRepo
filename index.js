@@ -1,2 +1,11 @@
-const currentDate = new Date();
-console.log(currentDate); // Fri 2024-04-05T09:17:00.000Z
+function reverseList(head) {
+  let prev = null;
+  let curr = head;
+  while (curr) {
+    const next = curr.next;
+    curr.next = prev;
+    prev = curr;
+    curr = next;
+  }
+  return prev;
+}
