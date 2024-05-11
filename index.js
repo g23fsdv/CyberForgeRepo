@@ -1,17 +1,10 @@
-function decodeString(s) {
-  const stack = [];
-  for (const char of s) {
-    if (char !== "]") stack.push(char);
-    else {
-      let str = "";
-      while (stack.length && stack[stack.length - 1] !== "[")
-        str = stack.pop() + str;
-      stack.pop();
-      let num = "";
-      while (stack.length && !isNaN(stack[stack.length - 1]))
-        num = stack.pop() + num;
-      stack.push(str.repeat(parseInt(num)));
-    }
+function wiggleSort(nums) {
+  nums.sort((a, b) => a - b);
+  const median = Math.floor((nums.length + 1) / 2);
+  const left = nums.slice(0, median);
+  const right = nums.slice(median);
+  for (let i = 0; i < nums.length; i++) {
+    if (i % 2 === 0) nums[i] = left.pop();
+    else nums[i] = right.pop();
   }
-  return stack.join("");
 }
