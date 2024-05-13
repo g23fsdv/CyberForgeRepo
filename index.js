@@ -1,10 +1,14 @@
-const bubbleSort = (arr) => {
-  for (let i = 0; i < arr.length; i++) {
-    for (let j = 0; j < arr.length - i - 1; j++) {
-      if (arr[j] > arr[j + 1]) {
-        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
-      }
-    }
+function findRedundantConnection(edges) {
+  const parent = new Array(edges.length + 1).fill(-1);
+  for (const edge of edges) {
+    const u = find(parent, edge[0]);
+    const v = find(parent, edge[1]);
+    if (u === v) return edge;
+    parent[u] = v;
   }
-  return arr;
-};
+  return [];
+}
+function find(parent, i) {
+  if (parent[i] === -1) return i;
+  return find(parent, parent[i]);
+}
