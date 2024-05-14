@@ -1,14 +1,17 @@
-function findRedundantConnection(edges) {
-  const parent = new Array(edges.length + 1).fill(-1);
-  for (const edge of edges) {
-    const u = find(parent, edge[0]);
-    const v = find(parent, edge[1]);
-    if (u === v) return edge;
-    parent[u] = v;
+function levelOrder(root) {
+  if (!root) return [];
+  const result = [];
+  const queue = [root];
+  while (queue.length) {
+    const levelSize = queue.length;
+    const currentLevel = [];
+    for (let i = 0; i < levelSize; i++) {
+      const node = queue.shift();
+      currentLevel.push(node.val);
+      if (node.left) queue.push(node.left);
+      if (node.right) queue.push(node.right);
+    }
+    result.push(currentLevel);
   }
-  return [];
-}
-function find(parent, i) {
-  if (parent[i] === -1) return i;
-  return find(parent, parent[i]);
+  return result;
 }
